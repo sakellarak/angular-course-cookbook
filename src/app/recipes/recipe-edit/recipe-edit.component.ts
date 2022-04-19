@@ -3,7 +3,6 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 
 import {RecipeService} from "../recipe.service";
-import {DataStorageService} from "../../shared/data-storage.service";
 
 @Component({
   selector: 'app-recipe-edit',
@@ -17,8 +16,7 @@ export class RecipeEditComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private recipeService: RecipeService,
-              private router: Router,
-              private dataStorageService: DataStorageService) {}
+              private router: Router) {}
 
   ngOnInit(): void {
     this.route.params
@@ -49,7 +47,7 @@ export class RecipeEditComponent implements OnInit {
               'name': new FormControl(ingredient.name, [Validators.required]),
               'amount': new FormControl(ingredient.amount, [Validators.required, Validators.min(1)]),
             })
-          )
+          );
         }
       }
     }
@@ -85,7 +83,6 @@ export class RecipeEditComponent implements OnInit {
     } else {
       this.recipeService.addRecipe(this.recipeForm.value);
     }
-    // this.dataStorageService.storeRecipes();
     this.onCancel();
   }
 

@@ -16,6 +16,7 @@ export class AuthInterceptorService implements HttpInterceptor {
         if (!user) {
           return next.handle(req);
         }
+        // otan prospathoyme na kanoyme login den exoyme token opote afhnoyme to request opws einai
         const modifiedReq = req.clone({
           params: new HttpParams().set('auth', user.token)
         });
