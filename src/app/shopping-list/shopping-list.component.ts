@@ -1,8 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subscription} from "rxjs";
+import {Store} from "@ngrx/store";
 
 import {Ingredient} from "../shared/ingredient.model";
 import {ShoppingListService} from "./shopping-list.service";
+import * as fromShoppingList from './store/shopping-list.reducer';
+import * as ShoppingListActions from './store/shopping-list.actions';
 
 @Component({
   selector: 'app-shopping-list',
@@ -10,27 +13,38 @@ import {ShoppingListService} from "./shopping-list.service";
   styleUrls: ['./shopping-list.component.css']
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
-  Ingredients: Ingredient[];
-  private ingredientsUpdatedSubscription: Subscription;
+  Ingredients: Observable<{ ingredients: Ingredient[] }>;
+  // private ingredientsUpdatedSubscription: Subscription;
 
-  constructor(private shoppingListService: ShoppingListService) { }
+  constructor(
+    private shoppingListService: ShoppingListService,
+    private store: Store<fromShoppingList.AppState>
+  ) {}
 
   ngOnInit(): void {
-    this.Ingredients = this.shoppingListService.getIngredients();
-    this.ingredientsUpdatedSubscription = this.shoppingListService.ingredientUpdated
-      .subscribe(
-        () => {
-          this.Ingredients = this.shoppingListService.getIngredients();
-        }
-      );
+    this.Ingredients = this.store.select('shoppingList');
+
+    // this.store.select('shoppingList').subscribe();
+    //mporeis na kaneis kai ayto ama thes, einai kalo practice na kaneis unsub meta
+
+    // to ekanes comment out giati evales NgRx
+    // this.Ingredients = this.shoppingListService.getIngredients();
+    // this.ingredientsUpdatedSubscription = this.shoppingListService.ingredientUpdated
+    //   .subscribe(
+    //     () => {
+    //       this.Ingredients = this.shoppingListService.getIngredients();
+    //     }
+    //   );
   }
 
   ngOnDestroy() {
-    this.ingredientsUpdatedSubscription.unsubscribe();
+    // this.ingredientsUpdatedSubscription.unsubscribe();
   }
 
   onEditItem(index: number) {
-    this.shoppingListService.editIngredient.next(index);
+    // this.shoppingListService.editIngredient.next(index);
+    this.store.dispatch(new ShoppingListActions.StartEdit(index));
   }
+
 
 }
