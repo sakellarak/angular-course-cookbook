@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {BehaviorSubject, catchError, tap, throwError} from "rxjs";
-import {Router} from "@angular/router";
-import {environment} from "../../environments/environment";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { BehaviorSubject, catchError, tap, throwError } from "rxjs";
+import { Router } from "@angular/router";
+import { environment } from "../../environments/environment";
 
-import {User} from "./user.module";
+import { User } from "./user.module";
 
 export interface AuthResponseData {
   idToken: string;
@@ -22,7 +22,8 @@ export class AuthService {
   user = new BehaviorSubject<User>(null);
   private tokenExpirationTimer: any;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+  }
 
   autoLogin() {
     const userData: {
@@ -94,7 +95,7 @@ export class AuthService {
   private handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred!';
     if (!errorRes.error || !errorRes.error.error) {
-      return throwError( () => new Error(errorMessage));
+      return throwError(() => new Error(errorMessage));
     }
     switch (errorRes.error.error.message) {
       case 'EMAIL_EXISTS':
