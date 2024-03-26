@@ -4,10 +4,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+import { BasicHighlightDirective } from './basic-highlight/basic-highlight.directive';
+import { BetterHighlightDirective } from './better-highlight/better-highlight.directive';
+import { UnlessDirective } from './unless.directive';
 
 @NgModule({
   declarations: [
-    AppComponent,
+      AppComponent,
+      BasicHighlightDirective,
+      BetterHighlightDirective,
+      UnlessDirective
   ],
   imports: [
     BrowserModule,
