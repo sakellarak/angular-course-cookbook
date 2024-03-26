@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -23,11 +23,7 @@ import { RecipesComponent } from './recipes/recipes.component';
         ShoppingListComponent,
         ShoppingListEditComponent,
     ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        HttpClientModule,
-    ],
+    imports: [BrowserModule, FormsModule, HttpClientModule, ReactiveFormsModule],
     providers: [],
     bootstrap: [AppComponent],
 })

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FeatureModel } from './shared/feature.model';
 
 @Component({
     selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     title = 'angular-course-cookbook';
+    protected readonly FeatureModel = FeatureModel;
+
+    selectedFeature = FeatureModel.recipe;
+
+    onNavigate(feature: FeatureModel) {
+        this.selectedFeature = feature;
+    }
 }
